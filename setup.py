@@ -14,7 +14,7 @@ class PyTest(Command):
         pytest.main("test.py")
 
 setup(
-    name = 'hathild',
+    name = 'hathilda',
     version = '0.0.1',
     url = 'http://github.com/umd_mith/hathild',
     author = 'Ed Summers',

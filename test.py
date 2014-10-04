@@ -1,7 +1,7 @@
 import pytest
-import hathild
+import hathilda
 
 def test_get_volume():
-    r = hathild.get('ucm.5305727634')
+    r = hathilda.get('ucm.5305727634')
     assert r['title'] == ['Canon medicinae (latine), a Gerardo Cremonensi translatus ;']
 
