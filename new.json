@@ -1,0 +1,35 @@
+{
+    "record": {
+        "authors": [
+            "Avicena."
+        ],
+        "editions": [],
+        "id": "009649975",
+        "isbns": [],
+        "issns": [],
+        "oclcs": [],
+        "publishDates": [
+            "1479"
+        ],
+        "secondaryAuthors": [
+            "Herbort, Johannes,",
+            "imp.",
+            "(Padua)",
+            "Arnau de Vilanova,",
+            "m. 1311,",
+            "trad.",
+            "Gerardus Cremonensis,",
+            "trad."
+        ],
+        "subjects": [
+            "Medicina",
+            "Obras anteriores a 1800."
+        ],
+        "titles": [
+            "Canon medicinae (latine), a Gerardo Cremonensi translatus ;",
+            "De viribus cordis (latine), ab Arnaldo de Villa Nova translatum /",
+            "Avicena."
+        ],
+        "url": "http://catalog.hathitrust.org/Record/009649975"
+    }
+}

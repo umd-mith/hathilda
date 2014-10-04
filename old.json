@@ -1,0 +1,38 @@
+{
+  "records" : {
+    "009649975" : {
+      "isbns" : [
+        
+      ],
+      "lccns" : [
+        
+      ],
+      "oclcs" : [
+        
+      ],
+      "recordURL" : "http://catalog.hathitrust.org/Record/009649975",
+      "issns" : [
+        
+      ],
+      "titles" : [
+        "Canon medicinae (latine), a Gerardo Cremonensi translatus ; De viribus cordis (latine), ab Arnaldo de Villa Nova translatum /"
+      ],
+      "marc-xml" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><collection><record><leader>02324cam a2200481 i 4500</leader><controlfield tag=\"001\">009649975</controlfield><controlfield tag=\"003\">MiAaHDL</controlfield><controlfield tag=\"005\">20110320000000.0</controlfield><controlfield tag=\"006\">m        d        </controlfield><controlfield tag=\"007\">cr bn ---auaua</controlfield><controlfield tag=\"008\">950522s1479    it            000 | lat c</controlfield><datafield tag=\"035\" ind1=\" \" ind2=\" \"><subfield code=\"a\">sdr-ucm.b17827814</subfield></datafield><datafield tag=\"040\" ind1=\" \" ind2=\" \"><subfield code=\"a\">SpMaUCME</subfield></datafield><datafield tag=\"080\" ind1=\" \" ind2=\" \"><subfield code=\"a\">61</subfield></datafield><datafield tag=\"090\" ind1=\" \" ind2=\" \"><subfield code=\"a\">DIOSCORIDES</subfield></datafield><datafield tag=\"099\" ind1=\" \" ind2=\" \"><subfield code=\"a\">BUC2BVMC</subfield><subfield code=\"b\">20080603</subfield></datafield><datafield tag=\"099\" ind1=\" \" ind2=\" \"><subfield code=\"a\">BUC2CERL</subfield><subfield code=\"b\">20070822</subfield></datafield><datafield tag=\"100\" ind1=\"0\" ind2=\" \"><subfield code=\"a\">Avicena.</subfield></datafield><datafield tag=\"245\" ind1=\"1\" ind2=\"0\"><subfield code=\"a\">Canon medicinae (latine), a Gerardo Cremonensi translatus ;</subfield><subfield code=\"b\">De viribus cordis (latine), ab Arnaldo de Villa Nova translatum /</subfield><subfield code=\"c\">Avicena.</subfield></datafield><datafield tag=\"260\" ind1=\" \" ind2=\" \"><subfield code=\"a\">Patavii :</subfield><subfield code=\"b\">[Johannes Herbort],</subfield><subfield code=\"c\">19 agosto, 27 octubre, 6 noviembre, 1479.</subfield></datafield><datafield tag=\"300\" ind1=\" \" ind2=\" \"><subfield code=\"a\">3 v. ;</subfield><subfield code=\"c\">Fol.</subfield></datafield><datafield tag=\"505\" ind1=\" \" ind2=\" \"><subfield code=\"a\">Contiene: Partes I-III (I 1-2; II 3; III 4-5). </subfield></datafield><datafield tag=\"510\" ind1=\"4\" ind2=\" \"><subfield code=\"a\">ISTC,</subfield><subfield code=\"c\">ia01419000.</subfield></datafield><datafield tag=\"510\" ind1=\"4\" ind2=\" \"><subfield code=\"a\">Cantó-Huarte,</subfield><subfield code=\"c\">91.</subfield></datafield><datafield tag=\"510\" ind1=\"4\" ind2=\" \"><subfield code=\"a\">H.C.,</subfield><subfield code=\"c\">2202.</subfield></datafield><datafield tag=\"510\" ind1=\"4\" ind2=\" \"><subfield code=\"a\">Pell.,</subfield><subfield code=\"c\">1661.</subfield></datafield><datafield tag=\"510\" ind1=\"4\" ind2=\" \"><subfield code=\"a\">GW.,</subfield><subfield code=\"c\">3117.</subfield></datafield><datafield tag=\"510\" ind1=\"4\" ind2=\" \"><subfield code=\"a\">BMC.,</subfield><subfield code=\"c\">VII,917.</subfield></datafield><datafield tag=\"510\" ind1=\"4\" ind2=\" \"><subfield code=\"a\">IGI,</subfield><subfield code=\"c\">1117.</subfield></datafield><datafield tag=\"510\" ind1=\"4\" ind2=\" \"><subfield code=\"a\">Goff,</subfield><subfield code=\"c\">A-1419.</subfield></datafield><datafield tag=\"510\" ind1=\"4\" ind2=\" \"><subfield code=\"a\">IBE,</subfield><subfield code=\"c\">660.</subfield></datafield><datafield tag=\"530\" ind1=\" \" ind2=\" \"><subfield code=\"a\">También disponible diapositiva: DIA 656.</subfield></datafield><datafield tag=\"530\" ind1=\" \" ind2=\" \"><subfield code=\"a\">También disponible la reproducción digital.</subfield></datafield><datafield tag=\"538\" ind1=\" \" ind2=\" \"><subfield code=\"a\">Mode of access: Internet.</subfield></datafield><datafield tag=\"650\" ind1=\"0\" ind2=\"4\"><subfield code=\"a\">Medicina</subfield><subfield code=\"x\">Obras anteriores a 1800.</subfield></datafield><datafield tag=\"700\" ind1=\"1\" ind2=\" \"><subfield code=\"a\">Herbort, Johannes,</subfield><subfield code=\"e\">imp.</subfield><subfield code=\"c\">(Padua)</subfield></datafield><datafield tag=\"700\" ind1=\"0\" ind2=\" \"><subfield code=\"a\">Arnau de Vilanova,</subfield><subfield code=\"d\">m. 1311,</subfield><subfield code=\"e\">trad.</subfield></datafield><datafield tag=\"700\" ind1=\"0\" ind2=\" \"><subfield code=\"a\">Gerardus Cremonensis,</subfield><subfield code=\"e\">trad.</subfield></datafield><datafield tag=\"710\" ind1=\"2\" ind2=\" \"><subfield code=\"a\">Colegio Mayor de San Ildefonso (Alcalá de Henares),</subfield><subfield code=\"e\">ant. pos.</subfield><subfield code=\"3\">BHI BH INC M-48.</subfield></datafield><datafield tag=\"752\" ind1=\" \" ind2=\" \"><subfield code=\"a\">Italia</subfield><subfield code=\"d\">Padua.</subfield></datafield><datafield tag=\"830\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Diapositivas (Biblioteca Histórica UCM);</subfield><subfield code=\"v\">656.</subfield></datafield><datafield tag=\"830\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Incunables (Biblioteca Histórica UCM)</subfield></datafield><datafield tag=\"830\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Biblioteca digital Dioscórides.</subfield><subfield code=\"n\">Medicina española.</subfield></datafield><datafield tag=\"830\" ind1=\" \" ind2=\"0\"><subfield code=\"a\">Biblioteca digital Dioscórides.</subfield><subfield code=\"n\">Incunables.</subfield></datafield><datafield tag=\"CID\" ind1=\" \" ind2=\" \"><subfield code=\"a\">009649975</subfield></datafield><datafield tag=\"DAT\" ind1=\"0\" ind2=\" \"><subfield code=\"a\">20100315210000.0</subfield><subfield code=\"b\">20110320000000.0</subfield></datafield><datafield tag=\"DAT\" ind1=\"1\" ind2=\" \"><subfield code=\"a\">20120815090757.0</subfield><subfield code=\"b\">2013-08-09T02:22:35Z</subfield></datafield><datafield tag=\"DAT\" ind1=\"2\" ind2=\" \"><subfield code=\"a\">2011-09-21T21:55:59Z</subfield></datafield><datafield tag=\"CAT\" ind1=\" \" ind2=\" \"><subfield code=\"a\">SDR-UCM</subfield><subfield code=\"d\">UNKNOWN</subfield><subfield code=\"l\">loader.pl-001-001</subfield></datafield><datafield tag=\"FMT\" ind1=\" \" ind2=\" \"><subfield code=\"a\">BK</subfield></datafield><datafield tag=\"HOL\" ind1=\" \" ind2=\" \"><subfield code=\"0\">sdr-ucm.b17827814</subfield><subfield code=\"a\">ucm</subfield><subfield code=\"b\">SDR</subfield><subfield code=\"c\">UCM</subfield><subfield code=\"p\">ucm.5305727634</subfield><subfield code=\"s\">UCM</subfield><subfield code=\"z\">Parte I</subfield><subfield code=\"1\">b17827814</subfield></datafield><datafield tag=\"974\" ind1=\" \" ind2=\" \"><subfield code=\"b\">UCM</subfield><subfield code=\"c\">UCM</subfield><subfield code=\"d\">20130809</subfield><subfield code=\"s\">ucm</subfield><subfield code=\"u\">ucm.5305727634</subfield><subfield code=\"z\">Parte I</subfield><subfield code=\"y\">1479</subfield><subfield code=\"r\">pd</subfield></datafield></record></collection>",
+      "publishDates" : [
+        "1479"
+      ]
+    }
+  },
+  "items" : [
+    {
+      "fromRecord" : "009649975",
+      "lastUpdate" : "20130809",
+      "usRightsString" : "Full view",
+      "orig" : "Universidad Complutense de Madrid",
+      "enumcron" : "Parte I",
+      "rightsCode" : "pd",
+      "htid" : "ucm.5305727634",
+      "itemURL" : "http://hdl.handle.net/2027/ucm.5305727634"
+    }
+  ]
+}
