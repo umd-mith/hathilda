@@ -19,7 +19,7 @@ setup(
     url = 'http://github.com/umd_mith/hathild',
     author = 'Ed Summers',
     author_email = 'ehs@pobox.com',
-    py_modules = ['hathild'],
+    py_modules = ['hathilda'],
     description = 'Turn HathiTrust Data into JSON-LD',
     cmdclass = {'test': PyTest},
     install_requires = ['requests'],
