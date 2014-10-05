@@ -63,6 +63,11 @@ def _extract(xml):
     i['issuance'] = _issuance(doc)
     i['publisher'] = _publisher(doc)
 
+    # remove empty values
+    for k, v in i.items():
+        if v == [] or v is None:
+            i.pop(k)
+
     return i
 
 def _get_hathi_record(record_id):
@@ -126,7 +131,6 @@ def _first(doc, path):
 def _list(doc, path):
     l = [e.text for e in doc.findall(path)]
     return filter(lambda a: a is not None, l)
-
 
 def _stripl(l):
     """
