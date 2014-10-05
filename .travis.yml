@@ -1,4 +1,1 @@
-python: 
-- "2.7"
 language: python
-script: py.test test.py
