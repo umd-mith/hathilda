@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/umd-mith/hathilda.svg)](http://travis-ci.org/umd-mith/hathilda)
 
-hathilda is a simplistic program to get HathiTrust metadata records as JSON-LD.
-It is not intended to be comprehesive at this time. It's simply meant to 
-get some form of the HathiTrust metadata into OpenRefine, where it can be
-edited, and those edits can be serialized using OpenAnnotation.
+hathilda helps you get HathiTrust metadata records as JSON-LD.
+The JSON-LD is not intended to be comprehesive at this time. hathilda
+is largely a proof of concept that's used for getting HathiTrust metadata 
+into OpenRefine, where records can be edited, and those edits can be 
+serialized using [OpenAnnotation](http://www.openannotation.org/spec/core/).
 
-If you want to learn more, please visit the 
-[MITH/HTRC project page](http://mith.umd.edu/tag/htrc/).
+If you want to learn more please visit the MITH/HTRC [project page](http://mith.umd.edu/mith-awarded-hathitrust-research-center-grant/).
 
