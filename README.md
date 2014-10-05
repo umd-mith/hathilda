@@ -18,7 +18,7 @@ o = hathilda.get('http://catalog.hathitrust.org/Record/001387595')
 print o['title']
 ```
 
-You can use hathilda.py from the command line, for example:
+You can also use hathilda.py from the command line, for example:
 
 ```
 ./hathilda.py http://catalog.hathitrust.org/Record/001387595
