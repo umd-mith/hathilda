@@ -5,16 +5,6 @@ import sys
 import requests
 import xml.etree.ElementTree as etree
 
-def main():
-    """
-    Read a list of HathiTrust URLs in a file and print out the JSON-LD
-    for them on stdout.
-    """
-    filename = sys.argv[1]
-    for url in open(filename):
-        item = get(url)
-        print item
-
 def get(record_url):
     """
     Get a HathiTrust record and return it as JSON-LD
@@ -27,6 +17,15 @@ def get(record_url):
     xml = response['records'][first_id]['marc-xml']
     return _extract(xml)
 
+def main():
+    """
+    Read a list of HathiTrust URLs in a file and print out the JSON-LD
+    for them on stdout.
+    """
+    filename = sys.argv[1]
+    for url in open(filename):
+        item = get(url)
+        print item
 
 def _extract(xml):
     """
