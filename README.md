@@ -1,5 +1,7 @@
 # hathilda
 
+[![Build Status](https://travis-ci.org/umd_mith/hathilda.svg)](http://travis-ci.org/umd_mith/hathilda)
+
 hathilda is a simplistic program to get HathiTrust metadata records as JSON-LD.
 It is not intended to be comprehesive at this time. It's simply meant to 
 get some form of the HathiTrust metadata into OpenRefine, where it can be
