@@ -2,6 +2,7 @@
 
 import re
 import sys
+import json
 import requests
 import xml.etree.ElementTree as etree
 
@@ -15,17 +16,37 @@ def get(record_url):
     # with the hathi record id?
     first_id = response['records'].keys()[0]
     xml = response['records'][first_id]['marc-xml']
-    return _extract(xml)
+
+    j = _extract(xml)
+    if not j:
+        return None
+    j['@id'] = 'http://catalog.hathitrust.org/Record/%s' % record_id
+    j['@context'] = {'@vocab': 'http://purl.org/dc/terms/'}
+
+    return j
 
 def main():
     """
     Read a list of HathiTrust URLs in a file and print out the JSON-LD
-    for them on stdout.
+    for them on stdout. Or if a single URL is passed in that record
+    will be retrieved and printed on stdout.
     """
     filename = sys.argv[1]
-    for url in open(filename):
-        item = get(url)
-        print item
+    if filename.startswith('http://'):
+        print json.dumps(get(filename), indent=2)
+    else:
+        print "["
+        first = True
+        for url in open(filename):
+            url = url.strip()
+            if not first:
+                print ","
+            first = False
+            item = get(url)
+            item.pop('@context')
+            print json.dumps(item, indent=2),
+        print "]"
+
 
 def _extract(xml):
     """
@@ -37,12 +58,15 @@ def _extract(xml):
     i['creator'] = _creator(doc)
     i['contributor'] = _contributor(doc)
     i['subject'] = _subject(doc)
-    #i['datePublished'] = _datePublished(doc)
+    i['spatial'] = _spatial(doc)
+    i['description'] = _description(doc)
+    i['issuance'] = _issuance(doc)
 
     return i
 
 def _get_hathi_record(record_id):
     url = 'http://catalog.hathitrust.org/api/volumes/full/recordnumber/%s.json' % record_id
+    print url
     r = requests.get(url)
     if r.status_code == 200:
         return r.json()
@@ -68,6 +92,26 @@ def _subject(doc):
     for e in doc.findall(".//record/datafield[@tag='650']"):
         s.append(' -- '.join(_list(e, 'subfield')))
     return _stripl(s)
+
+def _spatial(doc):
+    s = []
+    for e in doc.findall(".//record/datafield[@tag='651']"):
+        s.append(' -- '.join(_list(e, 'subfield')))
+    return _stripl(s)
+
+def _issuance(doc):
+    f = _first(doc, ".//record/controlfield[@tag='008']")
+    if f:
+        return f[7:11]
+    else: 
+        return None
+
+def _description(doc):
+    d = []
+    for e in doc.findall(".//record/datafield"):
+        if e.attrib['tag'].startswith('5'):
+            d.append(''.join(_list(e, 'subfield')))
+    return d
 
 def _first(doc, path):
     e = doc.find(path)
