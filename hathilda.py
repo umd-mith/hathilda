@@ -68,7 +68,7 @@ def _subject(doc):
     s = []
     for e in doc.findall(".//record/datafield[@tag='650']"):
         s.append(' -- '.join(_list(e, 'subfield')))
-    return s
+    return _stripl(s)
 
 def _first(doc, path):
     e = doc.find(path)

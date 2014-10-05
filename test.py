@@ -10,4 +10,4 @@ def test_get_volume():
         'Arnau de Vilanova',
         'Gerardus Cremonensis',
     ]
-    assert r['subject'] == ['Medicina -- Obras anteriores a 1800.']
+    assert r['subject'] == ['Medicina -- Obras anteriores a 1800']
