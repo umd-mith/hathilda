@@ -14,7 +14,8 @@ You can either use hathilda in your own program:
 
 import hathilda
 
-object = hathilda.get('http://catalog.hathitrust.org/Record/001387595')
+o = hathilda.get('http://catalog.hathitrust.org/Record/001387595')
+print o['title']
 ```
 
 Or you can use it from the command line, for example:
