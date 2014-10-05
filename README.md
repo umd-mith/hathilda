@@ -21,6 +21,9 @@ Or you can use it from the command line, for example:
 
 ```
 ./hathilda.py http://catalog.hathitrust.org/Record/001387595
+```
+
+```javascript
 {
   "@id": "http://catalog.hathitrust.org/Record/001387595",
   "@context": {
