@@ -61,12 +61,12 @@ def _extract(xml):
     i['spatial'] = _spatial(doc)
     i['description'] = _description(doc)
     i['issuance'] = _issuance(doc)
+    i['publisher'] = _publisher(doc)
 
     return i
 
 def _get_hathi_record(record_id):
     url = 'http://catalog.hathitrust.org/api/volumes/full/recordnumber/%s.json' % record_id
-    print url
     r = requests.get(url)
     if r.status_code == 200:
         return r.json()
@@ -109,9 +109,12 @@ def _issuance(doc):
 def _description(doc):
     d = []
     for e in doc.findall(".//record/datafield"):
-        if e.attrib['tag'].startswith('5'):
+        if 'tag' in e.attrib and e.attrib['tag'].startswith('5'):
             d.append(''.join(_list(e, 'subfield')))
     return d
+
+def _publisher(doc):
+    return _strip(_first(doc, ".//record/datafield[@tag='260']/subfield[@code='b']"))
 
 def _first(doc, path):
     e = doc.find(path)
@@ -121,7 +124,9 @@ def _first(doc, path):
         return ''
 
 def _list(doc, path):
-    return [e.text for e in doc.findall(path)]
+    l = [e.text for e in doc.findall(path)]
+    return filter(lambda a: a is not None, l)
+
 
 def _stripl(l):
     """
@@ -134,7 +139,7 @@ def _strip(s):
     Strips AACR3 punctuation from a string.
     """
     s = s.strip()
-    return re.sub(r' ?[.,/]$', '', s)
+    return re.sub(r' ?[;.,/]$', '', s)
 
 if __name__ == "__main__":
     main()

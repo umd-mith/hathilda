@@ -6,3 +6,40 @@ hathilda helps you get [HathiTrust](http://www.hathitrust.org/home) metadata rec
 
 If you want to learn more please visit the MITH/HTRC [project page](http://mith.umd.edu/mith-awarded-hathitrust-research-center-grant/).
 
+## Example
+
+You can either use hathilda in your own program:
+
+```python
+
+import hathilda
+
+object = hathilda.get('http://catalog.hathitrust.org/Record/001387595')
+```
+
+Or you can use it from the command line, for example:
+
+```
+./hathilda.py http://catalog.hathitrust.org/Record/001387595
+{
+  "@id": "http://catalog.hathitrust.org/Record/001387595",
+  "@context": {
+    "@vocab": "http://purl.org/dc/terms/"
+  },
+  "title": "Tractatus logico-philosophicus",
+  "creator": "Wittgenstein, Ludwig",
+  "publisher": "Harcourt, Brace",
+  "issuance": "1922",
+  "subject": [
+    "Language and languages -- Philosophy",
+    "Logic, Symbolic and mathematical"
+  ],
+  "description": [
+    "Geman and English on opposite pages.",
+    "Includes index.",
+    "Originally published in German in Annalen der Naturphilosophie, 1921 under title: Logisch-Philosophische Abhandlung.",
+    "Mode of access: Internet."
+  ]
+}
+```
+

@@ -14,4 +14,5 @@ def test_get_volume():
     ]
     assert r['subject'] == ['Medicina -- Obras anteriores a 1800']
     assert r['issuance'] == '1479'
+    assert r['publisher'] == '[Johannes Herbort]'
     import json; print json.dumps(r, indent=2)
