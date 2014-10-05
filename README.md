@@ -8,7 +8,7 @@ If you want to learn more please visit the MITH/HTRC [project page](http://mith.
 
 ## Example
 
-You can either use hathilda in your own program:
+Most of the time you'll probably want to use hathilda in your own program:
 
 ```python
 
