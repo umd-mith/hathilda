@@ -65,7 +65,7 @@ def _extract(xml):
 
     # remove empty values
     for k, v in i.items():
-        if v == [] or v is None:
+        if v == [] or v is None or v == '':
             i.pop(k)
 
     return i
@@ -142,8 +142,13 @@ def _strip(s):
     """
     Strips AACR3 punctuation from a string.
     """
+    if not s:
+        return s
+    # remove leading trailing whitespace
     s = s.strip()
-    return re.sub(r' ?[;.,/]$', '', s)
+    # the negative lookbehind (?<! [A-Z]) is to prevent removing trailing 
+    # periods from initialized names, e.g. Zingerman, B. I.
+    return re.sub(r'(?<! [A-Z]) ?[.;,/]$', '', s)
 
 if __name__ == "__main__":
     main()
