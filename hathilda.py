@@ -14,13 +14,14 @@ def get(record_url):
     response = _get_hathi_record(record_id)
     # hopefully just need the first record since we are looking up
     # with the hathi record id?
-    first_id = response['records'].keys()[0]
+    first_id = list(response['records'].keys())[0]
     xml = response['records'][first_id]['marc-xml']
 
     j = _extract(xml)
     if not j:
         return None
     j['@id'] = 'http://catalog.hathitrust.org/Record/%s' % record_id
+    # TODO: indicate @type? would be nice to use schema.org instead of dc?
     j['@context'] = {'@vocab': 'http://purl.org/dc/terms/'}
 
     return j
@@ -33,19 +34,22 @@ def main():
     """
     filename = sys.argv[1]
     if filename.startswith('http://'):
-        print json.dumps(get(filename), indent=2)
+        print(json.dumps(get(filename), indent=2))
     else:
-        print "["
+        print("{")
+        print('  "@context": {"@vocab": "http://purl.org/dc/terms/"},')
+        print('  "@graph": [')
+
         first = True
         for url in open(filename):
             url = url.strip()
             if not first:
-                print ","
+                print(",")
             first = False
             item = get(url)
-            item.pop('@context')
-            print json.dumps(item, indent=2),
-        print "]"
+            print(json.dumps(item, indent=2),)
+        print("]")
+        print("}")
 
 
 def _extract(xml):
@@ -64,11 +68,14 @@ def _extract(xml):
     i['publisher'] = _publisher(doc)
 
     # remove empty values
+    new_i = {}
     for k, v in i.items():
         if v == [] or v is None or v == '':
-            i.pop(k)
+            continue
+        else:
+            new_i[k] = v
 
-    return i
+    return new_i
 
 def _get_hathi_record(record_id):
     url = 'http://catalog.hathitrust.org/api/volumes/full/recordnumber/%s.json' % record_id
