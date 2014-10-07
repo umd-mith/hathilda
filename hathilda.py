@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
+
 import re
 import sys
 import json
 import requests
 import xml.etree.ElementTree as etree
+
 
 def get(record_url):
     """
@@ -47,7 +50,8 @@ def main():
                 print(",")
             first = False
             item = get(url)
-            print(json.dumps(item, indent=2),)
+            item.pop('@context')
+            print(json.dumps(item, indent=2), sep='', end='')
         print("]")
         print("}")
 
