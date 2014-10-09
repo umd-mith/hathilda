@@ -39,7 +39,7 @@ You can also use hathilda.py from the command line, for example:
     "Logic, Symbolic and mathematical"
   ],
   "description": [
-    "Geman and English on opposite pages.",
+    "German and English on opposite pages.",
     "Includes index.",
     "Originally published in German in Annalen der Naturphilosophie, 1921 under title: Logisch-Philosophische Abhandlung.",
     "Mode of access: Internet."
