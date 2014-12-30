@@ -70,6 +70,7 @@ def _extract(xml):
     i['description'] = _description(doc)
     i['issuance'] = _issuance(doc)
     i['publisher'] = _publisher(doc)
+    i['identifier'] = _vol(doc)
 
     # remove empty values
     new_i = {}
@@ -87,6 +88,10 @@ def _get_hathi_record(record_id):
     if r.status_code == 200:
         return r.json()
     return None
+
+def _vol(doc):
+    u = _first(doc, ".//record/datafield[@tag='HOL']/subfield[@code='p']")
+    return "hdl:2027/" + u
 
 def _title(doc):
     a = _first(doc, ".//record/datafield[@tag='245']/subfield[@code='a']")

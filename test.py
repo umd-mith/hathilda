@@ -15,3 +15,4 @@ def test_get_volume():
     assert r['subject'] == ['Medicina -- Obras anteriores a 1800']
     assert r['issuance'] == '1479'
     assert r['publisher'] == '[Johannes Herbort]'
+    assert r['identifier'] == 'hdl:2027/ucm.5305727634'
