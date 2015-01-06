@@ -25,7 +25,8 @@ Which will output:
 ```javascript
 {
   "@context": {
-    "@vocab": "http://purl.org/dc/terms/"
+    "@vocab": "http://purl.org/dc/terms/",
+    "ore": "http://www.openarchives.org/ore/terms/"
   },
   "@id": "http://hdl.handle.net/2027/mdp.39015001539116",
   "title": "Tractatus logico-philosophicus",
@@ -44,6 +45,16 @@ Which will output:
   ],
   "identifier": "http://catalog.hathitrust.org/Record/001387595",
   "provenance": "University of Michigan",
-  "rights": "pdus"
+  "rights": "pdus",
+  "ore:aggregates": {
+    "@id": "http://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=mdp.39015001539116;orient=0;size=100",
+    "format": "application/pdf"
+  }
 }
 ```
+
+When you install hathilda you should also get a command line program 
+`hathilda.py` which you can pass a HathiTrust volume id, and which will
+print the JSON-LD to stdout:
+
+    % hathilda.py mdp.39015001539116 > mdp.39015001539116.json

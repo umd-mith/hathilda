@@ -25,7 +25,7 @@ def get_volume(vol_id):
     xml = response['records'][first_id]['marc-xml']
     _extract_marc(vol, xml)
 
-    return vol 
+    return _remove_empty(vol)
 
 def _get_catalog_id(vol_id):
     """
@@ -42,12 +42,19 @@ def _get_catalog_id(vol_id):
 def _extract_vol(response, vol_id):
     vol = {
         '@id': "http://hdl.handle.net/2027/%s" % vol_id,
-        '@context': {'@vocab': 'http://purl.org/dc/terms/'}
+        '@context': {
+            '@vocab': 'http://purl.org/dc/terms/',
+            'ore': 'http://www.openarchives.org/ore/terms/'
+        }
     }
     for item in response['items']:
         if item['htid'] == vol_id:
             vol['provenance'] = item['orig']
             vol['rights'] = item['rightsCode']
+    vol['ore:aggregates'] = {
+        '@id': 'http://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=%s;orient=0;size=100' % vol_id,
+        'format': 'application/pdf'
+    }
     return vol
 
 def _extract_marc(vol, xml):
@@ -65,15 +72,15 @@ def _extract_marc(vol, xml):
     vol['publisher'] = _publisher(doc)
     vol['identifier'] = _id(doc)
 
-    # remove empty values
-    new_vol = {}
-    for k, v in vol.items():
-        if v == [] or v is None or v == '':
+def _remove_empty(d):
+    new_d = {}
+    for k, v in d.items():
+        if v is None or v == '' or len(v) == 0:
             continue
         else:
-            new_vol[k] = v
+            new_d[k] = v
 
-    return new_vol
+    return new_d
 
 def _get_catalog_record(record_id):
     """
@@ -161,3 +168,8 @@ def _strip(s):
     # the negative lookbehind (?<! [A-Z]) is to prevent removing trailing 
     # periods from initialized names, e.g. Zingerman, B. I.
     return re.sub(r'(?<! [A-Z]) ?[.;,/]$', '', s)
+
+if __name__ == "__main__":
+    vol_id = sys.argv[1]
+    print(json.dumps(get_volume(vol_id), indent=2))
+

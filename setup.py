@@ -23,5 +23,6 @@ setup(
     description = 'Turn HathiTrust Data into JSON-LD',
     cmdclass = {'test': PyTest},
     install_requires = ['requests'],
-    tests_require=['pytest']
+    tests_require=['pytest'],
+    scripts = ['hathilda.py'],
 )
