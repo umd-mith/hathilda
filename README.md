@@ -2,34 +2,32 @@
 
 [![Build Status](https://travis-ci.org/umd-mith/hathilda.svg)](http://travis-ci.org/umd-mith/hathilda)
 
-hathilda helps you get [HathiTrust](http://www.hathitrust.org/home) metadata records as JSON-LD. The JSON-LD is not intended to be comprehesive at this time. hathilda is largely a proof of concept that's used for getting HathiTrust metadata into OpenRefine, where records can be edited, and those edits can be serialized using [OpenAnnotation](http://www.openannotation.org/spec/core/).
-
-If you want to learn more please visit the MITH/HTRC [project page](http://mith.umd.edu/mith-awarded-hathitrust-research-center-grant/).
+hathilda helps you get [HathiTrust](http://www.hathitrust.org/home) volume
+metadata records as JSON-LD. At the moment only simple Dublin Core is 
+emitted. If you have suggestions on additional vocabularies to use, or 
+other improvements please file an issue ticket!
 
 ## Example
 
-Most of the time you'll probably want to use hathilda in your own program:
+Here's how you can use hathilda:
 
 ```python
 
+import json
 import hathilda
 
-o = hathilda.get('http://catalog.hathitrust.org/Record/001387595')
-print o['title']
+v = hathilda.get_volume('mdp.39015001539116')
+print json.dumps(v, indent=2)
 ```
 
-You can also use hathilda.py from the command line, for example:
-
-```
-./hathilda.py http://catalog.hathitrust.org/Record/001387595
-```
+Which will output:
 
 ```javascript
 {
-  "@id": "http://catalog.hathitrust.org/Record/001387595",
   "@context": {
     "@vocab": "http://purl.org/dc/terms/"
   },
+  "@id": "http://hdl.handle.net/2027/mdp.39015001539116",
   "title": "Tractatus logico-philosophicus",
   "creator": "Wittgenstein, Ludwig",
   "publisher": "Harcourt, Brace",
@@ -43,7 +41,9 @@ You can also use hathilda.py from the command line, for example:
     "Includes index.",
     "Originally published in German in Annalen der Naturphilosophie, 1921 under title: Logisch-Philosophische Abhandlung.",
     "Mode of access: Internet."
-  ]
+  ],
+  "identifier": "http://catalog.hathitrust.org/Record/001387595",
+  "provenance": "University of Michigan",
+  "rights": "pdus"
 }
 ```
-

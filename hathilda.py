@@ -8,90 +8,86 @@ import json
 import requests
 import xml.etree.ElementTree as etree
 
+def get_volume(vol_id):
+    """
+    Get a HathiTrust volume as JSON-LD.
+    """
 
-def get(record_url):
-    """
-    Get a HathiTrust record and return it as JSON-LD
-    """
-    record_id = record_url.split('/')[-1]
-    response = _get_hathi_record(record_id)
-    # hopefully just need the first record since we are looking up
-    # with the hathi record id?
+    # determine catalog id for the volume and look it up in the HathiTrust API
+    catalog_id = _get_catalog_id(vol_id)
+    response = _get_catalog_record(catalog_id)
+
+    # get volume specific information from the API response
+    vol = _extract_vol(response, vol_id)
+
+    # get additional metadata from the marc record in the API response
     first_id = list(response['records'].keys())[0]
     xml = response['records'][first_id]['marc-xml']
+    _extract_marc(vol, xml)
 
-    j = _extract(xml)
-    if not j:
-        return None
-    j['@id'] = 'http://catalog.hathitrust.org/Record/%s' % record_id
-    # TODO: indicate @type? would be nice to use schema.org instead of dc?
-    j['@context'] = {'@vocab': 'http://purl.org/dc/terms/'}
+    return vol 
 
-    return j
-
-def main():
+def _get_catalog_id(vol_id):
     """
-    Read a list of HathiTrust URLs in a file and print out the JSON-LD
-    for them on stdout. Or if a single URL is passed in that record
-    will be retrieved and printed on stdout.
+    Get the HathiTrust catalog record id for a HathiTrust volume id.
     """
-    filename = sys.argv[1]
-    if filename.startswith('http://'):
-        print(json.dumps(get(filename), indent=2))
-    else:
-        print("{")
-        print('  "@context": {"@vocab": "http://purl.org/dc/terms/"},')
-        print('  "@graph": [')
+    resp = requests.get('http://babel.hathitrust.org/cgi/pt?id=' + vol_id)
+    catalog_id = None
+    if resp.status_code == 200:
+        m = re.search('catalog.hathitrust.org/Record/(\d+)', resp.content)
+        if m:
+            catalog_id = m.group(1)
+    return catalog_id
 
-        first = True
-        for url in open(filename):
-            url = url.strip()
-            if not first:
-                print(",")
-            first = False
-            item = get(url)
-            item.pop('@context')
-            print(json.dumps(item, indent=2), sep='', end='')
-        print("]")
-        print("}")
+def _extract_vol(response, vol_id):
+    vol = {
+        '@id': "http://hdl.handle.net/2027/%s" % vol_id,
+        '@context': {'@vocab': 'http://purl.org/dc/terms/'}
+    }
+    for item in response['items']:
+        if item['htid'] == vol_id:
+            vol['provenance'] = item['orig']
+            vol['rights'] = item['rightsCode']
+    return vol
 
-
-def _extract(xml):
+def _extract_marc(vol, xml):
     """
     Parse MARC XML and return JSON-LD.
     """
     doc = etree.fromstring(xml.encode('utf8'))
-    i = {}
-    i['title'] = _title(doc)
-    i['creator'] = _creator(doc)
-    i['contributor'] = _contributor(doc)
-    i['subject'] = _subject(doc)
-    i['spatial'] = _spatial(doc)
-    i['description'] = _description(doc)
-    i['issuance'] = _issuance(doc)
-    i['publisher'] = _publisher(doc)
-    i['identifier'] = _vol(doc)
+    vol['title'] = _title(doc)
+    vol['creator'] = _creator(doc)
+    vol['contributor'] = _contributor(doc)
+    vol['subject'] = _subject(doc)
+    vol['spatial'] = _spatial(doc)
+    vol['description'] = _description(doc)
+    vol['issuance'] = _issuance(doc)
+    vol['publisher'] = _publisher(doc)
+    vol['identifier'] = _id(doc)
 
     # remove empty values
-    new_i = {}
-    for k, v in i.items():
+    new_vol = {}
+    for k, v in vol.items():
         if v == [] or v is None or v == '':
             continue
         else:
-            new_i[k] = v
+            new_vol[k] = v
 
-    return new_i
+    return new_vol
 
-def _get_hathi_record(record_id):
+def _get_catalog_record(record_id):
+    """
+    Return JSON for catalog record from HathiTrust API.
+    """
     url = 'http://catalog.hathitrust.org/api/volumes/full/recordnumber/%s.json' % record_id
     r = requests.get(url)
     if r.status_code == 200:
         return r.json()
     return None
 
-def _vol(doc):
-    u = _first(doc, ".//record/datafield[@tag='HOL']/subfield[@code='p']")
-    return "hdl:2027/" + u
+def _id(doc):
+    catalog_id = _first(doc, ".//record/controlfield[@tag='001']")
+    return 'http://catalog.hathitrust.org/Record/' + catalog_id
 
 def _title(doc):
     a = _first(doc, ".//record/datafield[@tag='245']/subfield[@code='a']")
@@ -165,6 +161,3 @@ def _strip(s):
     # the negative lookbehind (?<! [A-Z]) is to prevent removing trailing 
     # periods from initialized names, e.g. Zingerman, B. I.
     return re.sub(r'(?<! [A-Z]) ?[.;,/]$', '', s)
-
-if __name__ == "__main__":
-    main()
