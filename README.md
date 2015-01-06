@@ -3,9 +3,12 @@
 [![Build Status](https://travis-ci.org/umd-mith/hathilda.svg)](http://travis-ci.org/umd-mith/hathilda)
 
 hathilda helps you get [HathiTrust](http://www.hathitrust.org/home) volume
-metadata records as JSON-LD. At the moment only simple Dublin Core is 
-emitted. If you have suggestions on additional vocabularies to use, or 
-other improvements please file an issue ticket!
+metadata records as JSON-LD. It's pretty simplistic, and mainly meant as a 
+proof of concept ... the concept being maybe HathiTrust themself could publish
+something similar, someday, maybe ... or not :-)
+
+If you have suggestions on additional vocabularies to use, or other 
+improvements please file an issue ticket.
 
 ## Example
 
