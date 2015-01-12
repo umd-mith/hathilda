@@ -34,7 +34,7 @@ def _get_catalog_id(vol_id):
     resp = requests.get('http://babel.hathitrust.org/cgi/pt?id=' + vol_id)
     catalog_id = None
     if resp.status_code == 200:
-        m = re.search(r'catalog.hathitrust.org/Record/(\d+)', resp.content.decode())
+        m = re.search(r'catalog.hathitrust.org/Record/(\d+)', resp.content.decode('utf8'))
         if m:
             catalog_id = m.group(1)
     return catalog_id
