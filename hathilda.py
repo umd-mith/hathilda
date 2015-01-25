@@ -8,6 +8,12 @@ import json
 import requests
 import xml.etree.ElementTree as etree
 
+from requests.adapters import HTTPAdapter
+
+http = requests.Session()
+http.mount('http://babel.hathitrust.org', HTTPAdapter(max_retries=10))
+http.mount('http://catalog.hathitrust.org', HTTPAdapter(max_retries=10))
+
 def get_volume(vol_id):
     """
     Get a HathiTrust volume as JSON-LD.
@@ -31,7 +37,7 @@ def _get_catalog_id(vol_id):
     """
     Get the HathiTrust catalog record id for a HathiTrust volume id.
     """
-    resp = requests.get('http://babel.hathitrust.org/cgi/pt?id=' + vol_id)
+    resp = http.get('http://babel.hathitrust.org/cgi/pt?id=' + vol_id)
     catalog_id = None
     if resp.status_code == 200:
         m = re.search(r'catalog.hathitrust.org/Record/(\d+)', resp.content.decode('utf8'))
@@ -87,7 +93,7 @@ def _get_catalog_record(record_id):
     Return JSON for catalog record from HathiTrust API.
     """
     url = 'http://catalog.hathitrust.org/api/volumes/full/recordnumber/%s.json' % record_id
-    r = requests.get(url)
+    r = http.get(url)
     if r.status_code == 200:
         return r.json()
     return None

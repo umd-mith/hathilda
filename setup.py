@@ -18,7 +18,7 @@ class PyTest(Command):
 
 setup(
     name = 'hathilda',
-    version = '0.0.5',
+    version = '0.0.6',
     url = 'http://github.com/umd_mith/hathild',
     author = 'Ed Summers',
     author_email = 'ehs@pobox.com',
