@@ -2,6 +2,8 @@ import sys
 
 from setuptools import setup, Command
 
+dependencies = open('requirements.txt').read().split()
+
 class PyTest(Command):
     """
     A command to convince setuptools to run pytests.
@@ -25,7 +27,7 @@ setup(
     py_modules = ['hathilda'],
     description = 'Turn HathiTrust Data into JSON-LD',
     cmdclass = {'test': PyTest},
-    install_requires = ['requests'],
+    install_requires = dependencies,
     tests_require=['pytest'],
     scripts = ['hathilda.py'],
 )
