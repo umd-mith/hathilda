@@ -5,12 +5,15 @@ from __future__ import print_function
 import re
 import sys
 import json
+import backoff
 import requests
 import xml.etree.ElementTree as etree
 
 from requests.adapters import HTTPAdapter
+from requests.exceptions import RequestException
 
 http = requests.Session()
+http.headers.update({'user-agent': 'hathilda <http://github.com/umd-mith/hathilda'})
 http.mount('http://babel.hathitrust.org', HTTPAdapter(max_retries=10))
 http.mount('http://catalog.hathitrust.org', HTTPAdapter(max_retries=10))
 
@@ -33,6 +36,8 @@ def get_volume(vol_id):
 
     return _remove_empty(vol)
 
+
+@backoff.on_exception(backoff.expo, RequestException, max_tries=10)
 def _get_catalog_id(vol_id):
     """
     Get the HathiTrust catalog record id for a HathiTrust volume id.
@@ -88,6 +93,7 @@ def _remove_empty(d):
 
     return new_d
 
+@backoff.on_exception(backoff.expo, RequestException, max_tries=10)
 def _get_catalog_record(record_id):
     """
     Return JSON for catalog record from HathiTrust API.
