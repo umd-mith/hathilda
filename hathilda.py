@@ -6,6 +6,7 @@ import re
 import sys
 import json
 import backoff
+import logging
 import requests
 import xml.etree.ElementTree as etree
 
@@ -24,6 +25,8 @@ def get_volume(vol_id):
 
     # determine catalog id for the volume and look it up in the HathiTrust API
     catalog_id = _get_catalog_id(vol_id)
+    if not catalog_id:
+        raise Exception("unable to get catalog id for %s", vol_id)
     response = _get_catalog_record(catalog_id)
 
     # get volume specific information from the API response
@@ -42,12 +45,13 @@ def _get_catalog_id(vol_id):
     """
     Get the HathiTrust catalog record id for a HathiTrust volume id.
     """
-    resp = http.get('http://babel.hathitrust.org/cgi/pt?id=' + vol_id)
+    logging.info("getting catalog id for %s", vol_id)
+    resp = http.get('http://babel.hathitrust.org/cgi/pt', params={'id': vol_id})
+    resp.raise_for_status()
     catalog_id = None
-    if resp.status_code == 200:
-        m = re.search(r'catalog.hathitrust.org/Record/(\d+)', resp.content.decode('utf8'))
-        if m:
-            catalog_id = m.group(1)
+    m = re.search(r'catalog.hathitrust.org/Record/(\d+)', resp.content.decode('utf8'))
+    if m:
+        catalog_id = m.group(1)
     return catalog_id
 
 def _extract_vol(response, vol_id):
@@ -98,11 +102,11 @@ def _get_catalog_record(record_id):
     """
     Return JSON for catalog record from HathiTrust API.
     """
+    logging.info("getting record from api: %s", record_id)
     url = 'http://catalog.hathitrust.org/api/volumes/full/recordnumber/%s.json' % record_id
-    r = http.get(url)
-    if r.status_code == 200:
-        return r.json()
-    return None
+    resp = http.get(url)
+    resp.raise_for_status()
+    return resp.json()
 
 def _id(doc):
     catalog_id = _first(doc, ".//record/controlfield[@tag='001']")
@@ -182,6 +186,7 @@ def _strip(s):
     return re.sub(r'(?<! [A-Z]) ?[.;,/]$', '', s)
 
 if __name__ == "__main__":
+    logging.basicConfig(filename='hathilda.log', level=logging.INFO)
     vol_id = sys.argv[1]
     print(json.dumps(get_volume(vol_id), indent=2))
 

@@ -1,5 +1,8 @@
 import pytest
+import logging
 import hathilda
+
+logging.basicConfig(filename='test.log', level=logging.DEBUG)
 
 def test_get_volume():
     r = hathilda.get_volume('ucm.5305727634')
@@ -26,6 +29,5 @@ def test_get_volume():
         'format': 'application/pdf'
     }
          
-
 def test_catalog_id():
     assert hathilda._get_catalog_id('hvd.hb16pk') == '000358054'
