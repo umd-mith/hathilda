@@ -156,7 +156,7 @@ def _stripl(l):
 
 def _strip(s):
     """
-    Strips AACR3 punctuation from a string.
+    Strips AACR2 punctuation from a string.
     """
     if not s:
         return s
