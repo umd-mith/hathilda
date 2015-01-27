@@ -4,8 +4,7 @@
 
 hathilda helps you get [HathiTrust](http://www.hathitrust.org/home) volume
 metadata records as JSON-LD. It's pretty simplistic, and mainly meant as a 
-proof of concept ... the concept being maybe HathiTrust themself could publish
-something similar, someday, maybe ... or not :-)
+proof of concept.
 
 If you have suggestions on additional vocabularies to use, or other 
 improvements please file an issue ticket.
