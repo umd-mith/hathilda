@@ -15,7 +15,6 @@ from requests.exceptions import RequestException
 
 http = requests.Session()
 http.headers.update({'user-agent': 'hathilda <http://github.com/umd-mith/hathilda'})
-http.mount('http://babel.hathitrust.org', HTTPAdapter(max_retries=10))
 http.mount('http://catalog.hathitrust.org', HTTPAdapter(max_retries=10))
 
 def get_volume(vol_id):
@@ -85,7 +84,6 @@ def _get_catalog_record(vol_id):
     Return JSON for catalog record from HathiTrust API.
     """
     logging.info("getting record from api: %s", vol_id)
-    #url = 'http://catalog.hathitrust.org/api/volumes/full/recordnumber/%s.json' % record_id
     url = 'http://catalog.hathitrust.org/api/volumes/full/htid/%s.json' % vol_id
     resp = http.get(url)
     resp.raise_for_status()
