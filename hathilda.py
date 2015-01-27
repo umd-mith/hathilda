@@ -22,12 +22,7 @@ def get_volume(vol_id):
     """
     Get a HathiTrust volume as JSON-LD.
     """
-
-    # determine catalog id for the volume and look it up in the HathiTrust API
-    catalog_id = _get_catalog_id(vol_id)
-    if not catalog_id:
-        raise Exception("unable to get catalog id for %s", vol_id)
-    response = _get_catalog_record(catalog_id)
+    response = _get_catalog_record(vol_id)
 
     # get volume specific information from the API response
     vol = _extract_vol(response, vol_id)
@@ -37,22 +32,9 @@ def get_volume(vol_id):
     xml = response['records'][first_id]['marc-xml']
     _extract_marc(vol, xml)
 
+    # remove any keys that have no value
     return _remove_empty(vol)
 
-
-@backoff.on_exception(backoff.expo, RequestException, max_tries=10)
-def _get_catalog_id(vol_id):
-    """
-    Get the HathiTrust catalog record id for a HathiTrust volume id.
-    """
-    logging.info("getting catalog id for %s", vol_id)
-    resp = http.get('http://babel.hathitrust.org/cgi/pt', params={'id': vol_id})
-    resp.raise_for_status()
-    catalog_id = None
-    m = re.search(r'catalog.hathitrust.org/Record/(\d+)', resp.content.decode('utf8'))
-    if m:
-        catalog_id = m.group(1)
-    return catalog_id
 
 def _extract_vol(response, vol_id):
     vol = {
@@ -98,12 +80,13 @@ def _remove_empty(d):
     return new_d
 
 @backoff.on_exception(backoff.expo, RequestException, max_tries=10)
-def _get_catalog_record(record_id):
+def _get_catalog_record(vol_id):
     """
     Return JSON for catalog record from HathiTrust API.
     """
-    logging.info("getting record from api: %s", record_id)
-    url = 'http://catalog.hathitrust.org/api/volumes/full/recordnumber/%s.json' % record_id
+    logging.info("getting record from api: %s", vol_id)
+    #url = 'http://catalog.hathitrust.org/api/volumes/full/recordnumber/%s.json' % record_id
+    url = 'http://catalog.hathitrust.org/api/volumes/full/htid/%s.json' % vol_id
     resp = http.get(url)
     resp.raise_for_status()
     return resp.json()

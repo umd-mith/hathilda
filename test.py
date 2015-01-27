@@ -28,6 +28,3 @@ def test_get_volume():
         '@id': 'http://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=ucm.5305727634;orient=0;size=100',
         'format': 'application/pdf'
     }
-         
-def test_catalog_id():
-    assert hathilda._get_catalog_id('hvd.hb16pk') == '000358054'
