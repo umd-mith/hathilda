@@ -28,3 +28,10 @@ def test_get_volume():
         '@id': 'http://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=ucm.5305727634;orient=0;size=100',
         'format': 'application/pdf'
     }
+
+def test_error():
+    # this one causes an error in the HathiTrust API, which causes a 
+    # 200 OK to come back with HTML instead of JSON. get_volume should
+    # return None on these sorts of errors
+    r = hathilda.get_volume('mdp.39015062249209')
+    assert r == None

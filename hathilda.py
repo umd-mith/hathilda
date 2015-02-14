@@ -22,6 +22,8 @@ def get_volume(vol_id):
     Get a HathiTrust volume as JSON-LD.
     """
     response = _get_catalog_record(vol_id)
+    if not response:
+        return None
 
     # get volume specific information from the API response
     vol = _extract_vol(response, vol_id)
@@ -87,7 +89,11 @@ def _get_catalog_record(vol_id):
     url = 'http://catalog.hathitrust.org/api/volumes/full/htid/%s.json' % vol_id
     resp = http.get(url)
     resp.raise_for_status()
-    return resp.json()
+    try:
+        return resp.json()
+    except ValueError:
+        logging.error("unable to get json from %s", url)
+        return None
 
 def _id(doc):
     catalog_id = _first(doc, ".//record/controlfield[@tag='001']")
